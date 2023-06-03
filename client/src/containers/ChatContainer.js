@@ -3,8 +3,7 @@ import SpeakBox from "../components/SpeakBox";
 
 const ChatContainer = () => {
     return (<>
-        <SpeakBox />
-        {/* <Menu /> */}
+        <h3>chatchat</h3>
     </>);
 }
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
-const SpeakBox = () => {
+const SpeakBox = ({ socket }) => {
     const [keysPressed, setKeysPressed] = useState({})
     const [finalTranscript, setFinalTranscript] = useState("")
 
@@ -46,6 +46,8 @@ const SpeakBox = () => {
         // Send finalTranscript to the server here
         if (finalTranscript !== "") {
             console.log(finalTranscript)
+            // console.log(socket.emit)
+            if (socket) socket.emit('prompt', { finalTranscript })
             // Reset final transcript after sending
             setFinalTranscript("")
         }

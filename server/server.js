@@ -2,23 +2,30 @@ import bodyParser from "body-parser"
 import cors from "cors"
 import { createServer } from 'http'
 import { Server } from 'socket.io'
-
+import socketHandlers from './socketHandlers.js'
 import express from "express"
+
+const port = 8000
+
 const app = express()
-const port = 8000   //   || process.env.PORT  for production?
-
-// Create a HTTP server using Express
-const server = createServer(app);
-
-// Create a Socket.IO server using the HTTP server
-const io = new Server(server);
-
-// Use the socketHandlers function to handle the Socket.IO events
-socketHandlers(io);
 
 app.use(bodyParser.json())
 app.use(cors())
 
-app.listen(port, () => {
+// Create HTTP server 
+const server = createServer(app);
+
+// Create Socket.IO server using HTTP server
+const io = new Server(server, {
+    cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"]
+    }
+});
+
+// Use the socketHandlers function to handle the Socket.IO events
+socketHandlers(io);
+
+server.listen(port, () => {
     console.log(`listening on port ${port}`)
 })
