@@ -50,7 +50,7 @@ const SpeakBox = () => {
         // Send finalTranscript to the server here
         if (finalTranscript !== "") {
             console.log(finalTranscript)
-            if (socket) socket.emit('prompt', { finalTranscript })
+            if (socket) socket.emit('prompt', { prompt: finalTranscript })
             // TODO - add else to handle connection loss
             setFinalTranscript("")
         }

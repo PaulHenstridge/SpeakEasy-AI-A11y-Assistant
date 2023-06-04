@@ -2,7 +2,7 @@ import bodyParser from "body-parser"
 import cors from "cors"
 import { createServer } from 'http'
 import { Server } from 'socket.io'
-import socketHandlers from './socketHandlers.js'
+import socketHandlers from './services/socketHandlers.js'
 import express from "express"
 
 const port = 8000
