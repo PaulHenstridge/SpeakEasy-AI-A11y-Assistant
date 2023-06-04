@@ -1,8 +1,8 @@
 import SpeakBox from "../components/SpeakBox";
 
-const HeaderContainer = ({ socket }) => {
+const HeaderContainer = () => {
     return (<>
-        <SpeakBox socket={socket} />
+        <SpeakBox />
         {/* <Menu /> */}
     </>);
 }
