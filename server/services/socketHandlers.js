@@ -1,3 +1,4 @@
+import dataHandler from "./dataHandler.js";
 import callOpenAiApi from "./openAiApi.js";
 
 const socketHandlers = (io) => {
@@ -11,11 +12,14 @@ const socketHandlers = (io) => {
             console.log('Received data: ', data);
             // pass data to a function where it will be sent to API
 
-            console.log("%%%%%", await callOpenAiApi({ role: 'user', content: data.prompt }))
+            let aiResponse = await callOpenAiApi({ role: 'user', content: data.prompt })
+            console.log(aiResponse)
+            dataHandler(aiResponse)
+            // call 'main' function, pass in the prompt
         });
 
 
-        // memeo events
+        // memo events
 
 
         // chat events
