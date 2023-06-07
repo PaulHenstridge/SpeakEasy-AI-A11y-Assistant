@@ -1,11 +1,12 @@
 import Memo from "./Memo";
 
-const MemoBoard = () => {
+const MemoBoard = ({ memos }) => {
+
+    const mappedMemos = memos.map((memo, index) => <Memo memo={memo} key={(index)} />)
+
     return (<>
         <h5>memo board</h5>
-        <Memo />
-        <Memo />
-        <Memo />
+        {mappedMemos}
     </>);
 }
 

@@ -59,7 +59,7 @@ const SpeakBox = () => {
     return (<>
         {/* <button onClick={toggleSpeech}>Use Voice Commands</button> */}
         {listening && <h6>listening</h6>}
-        <p>...{transcript}...</p>
+        <p>...   {transcript}   ...</p>
         <h4>{finalTranscript}</h4>
     </>);
 }
