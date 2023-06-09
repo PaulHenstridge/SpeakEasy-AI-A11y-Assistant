@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+import { debounce } from 'lodash';
 
 import SocketContext from '../contexts/socketContext';
 
@@ -15,9 +16,13 @@ const SpeakBox = () => {
         setKeysPressed(keys => ({ ...keys, [event.key]: true }))
     };
 
-    const handleKeyUp = (event) => {
+
+
+    const handleKeyUp = debounce((event) => {
         setKeysPressed(keys => ({ ...keys, [event.key]: false }))
-    };
+    }, 500);
+
+
 
     useEffect(() => {
         window.addEventListener('keydown', handleKeyDown)

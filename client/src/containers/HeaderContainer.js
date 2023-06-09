@@ -24,7 +24,6 @@ const HeaderContainer = () => {
     }, [socket])
 
     useEffect(() => {
-        console.log('SPEAK FUNC: ', speak)
         speak(response)
     }, [response])
 

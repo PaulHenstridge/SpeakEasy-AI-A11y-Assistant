@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import axios from 'axios';
+
+import { debounce } from 'lodash'
 
 import SocketContext from '../contexts/socketContext';
 import MemoBoard from "../components/MemoBoard";
@@ -7,8 +9,31 @@ import MemoBoard from "../components/MemoBoard";
 const MemoContainer = () => {
 
     const [memos, setMemos] = useState([])
+    const [isNewMemo, setIsNewMemo] = useState(false)
 
     const socket = useContext(SocketContext);
+
+    const saveMemo = useCallback(
+        debounce(async data => {
+            console.log(data)
+            setIsNewMemo(true)
+            const date = new Date();
+
+            let day = date.getDate();
+            let month = date.getMonth() + 1;
+            let year = date.getFullYear();
+
+            let currentDate = `${day}-${month}-${year}`;
+
+            let memoObj = { "date": currentDate, "memo_text": data }
+            try {
+                await axios.post('http://localhost:8080/memos', memoObj);
+                setMemos(prevMemos => [...prevMemos, memoObj]);
+            } catch (error) {
+                console.error(error);
+            }
+        }, 1000), [])
+
 
     // get initial memos from DB
     useEffect(() => {
@@ -27,24 +52,14 @@ const MemoContainer = () => {
 
     // save new memo
     useEffect(() => {
-        const saveMemo = async (data) => {
-            console.log(data)
-
-            setMemos(prevMemos => [...prevMemos, data]);
-            let memoObj = { "date": "21 July", "memo_text": data } // TODO - add real date in right format for Java/Postgres
-            try {
-                await axios.post('http://localhost:8080/memos', memoObj);
-            } catch (error) {
-                console.error(error);
-            }
-        };
 
         socket.on('memo', saveMemo);
 
         return () => {
             socket.off('memo', saveMemo);
+            saveMemo.cancel()
         };
-    }, [socket]);
+    }, [socket, saveMemo]);
 
     // delete a memo
     const deleteMemo = id => {
@@ -53,7 +68,7 @@ const MemoContainer = () => {
 
     return (<>
 
-        <MemoBoard memos={memos} />
+        {isNewMemo ? <MemoBoard memos={memos} /> : null}
 
     </>);
 }

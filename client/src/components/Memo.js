@@ -1,7 +1,7 @@
 const Memo = ({ memo }) => {
     return (<>
-        <h6> {memo.memo_text} </h6>
-        <p>{memo.date}</p>
+        <p> {memo.memo_text} </p>
+        <h6>{memo.date}</h6>
         <button>Clear Memo!</button>
     </>);
 }
