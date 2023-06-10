@@ -1,5 +1,6 @@
 import dataHandler from "./dataHandler.js";
 import callOpenAiApi from "./openAiApi.js";
+import callOpenAiApiChat from "./openAiApiChat.js";
 
 const socketHandlers = (io) => {
     console.log('sockethandlers runs')
@@ -22,9 +23,9 @@ const socketHandlers = (io) => {
         // chat events
         socket.on('conversation', async (data) => {
             console.log('message: ' + data)
-            let aiResponse = await callOpenAiApi({ role: 'user', content: data.msg })
-            console.log(aiResponse)
-            dataHandler([['conversation'], aiResponse])
+            let aiResponse = await callOpenAiApiChat({ role: 'user', content: data.chats })
+            console.log('AI RESPONSE', aiResponse)
+            dataHandler(aiResponse)
 
         });
 

@@ -10,6 +10,8 @@ import socket from './utils/socket';
 import SocketContext from './contexts/socketContext'
 
 import { SpeechProvider } from './components/SpeechProvider';
+import { ConversationProvider } from './components/ConversationProvider';
+
 
 function App() {
     const [activeComponent, setActiveComponent] = useState(null);
@@ -21,9 +23,11 @@ function App() {
             <h1>SpeakEasy</h1>
             <SocketContext.Provider value={socket}>
                 <SpeechProvider>
-                    <HeaderContainer setActiveComponent={setActiveComponent} />
-                    <MemoContainer activeComponent={activeComponent} />
-                    <ChatContainer setIsNewChat={activeComponent} />
+                    <ConversationProvider>
+                        <HeaderContainer activeComponent={activeComponent} setActiveComponent={setActiveComponent} />
+                        <ChatContainer activeComponent={activeComponent} setActiveComponent={setActiveComponent} />
+                    </ConversationProvider>
+                    <MemoContainer activeComponent={activeComponent} setActiveComponent={setActiveComponent} />
                 </SpeechProvider>
             </SocketContext.Provider>
         </div>

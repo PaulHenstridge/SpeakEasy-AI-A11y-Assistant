@@ -3,14 +3,20 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import { debounce } from 'lodash';
 
 import SocketContext from '../contexts/socketContext';
+import { ConversationContext } from '../contexts/ConversationContext';
 
-const SpeakBox = () => {
+
+
+
+const SpeakBox = ({ activeComponent }) => {
     const [keysPressed, setKeysPressed] = useState({})
     const [finalTranscript, setFinalTranscript] = useState("")
 
     const { transcript, listening, resetTranscript } = useSpeechRecognition()
 
     const socket = useContext(SocketContext);
+    const { conversationHistory, setConversationHistory } = useContext(ConversationContext);
+
 
     const handleKeyDown = (event) => {
         setKeysPressed(keys => ({ ...keys, [event.key]: true }))
@@ -55,7 +61,12 @@ const SpeakBox = () => {
         // Send finalTranscript to the server here
         if (finalTranscript !== "") {
             console.log(finalTranscript)
-            if (socket) socket.emit('prompt', { prompt: finalTranscript })
+            let newChatObj = { role: "user", content: finalTranscript }
+            if (activeComponent === 'chat') {
+                socket.emit('prompt', { prompt: finalTranscript })
+            } else {
+                socket.emit('conversation', { chats: [...conversationHistory, newChatObj] })
+            }
             // TODO - add else to handle connection loss
             setFinalTranscript("")
         }

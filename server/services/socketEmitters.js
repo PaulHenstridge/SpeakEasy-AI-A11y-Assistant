@@ -16,3 +16,6 @@ export const memoEmitter = (data) => {
     io.emit('memo', data)
 }
 
+export const conversationEmitter = (data) => {
+    io.emit('conversation', data)
+}
