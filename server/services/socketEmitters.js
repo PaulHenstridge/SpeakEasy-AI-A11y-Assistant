@@ -11,6 +11,8 @@ export const chatEmitter = (data) => {
 }
 
 export const memoEmitter = (data) => {
+    console.log("sending from socketemittrrs")
+    console.log("Data to emit: ", data)
     io.emit('memo', data)
 }
 

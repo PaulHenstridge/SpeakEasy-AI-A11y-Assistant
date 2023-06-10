@@ -5,8 +5,18 @@ import { SpeechContext } from '../contexts/speechContext';
 
 import SpeakBox from "../components/SpeakBox";
 import ResponseBox from '../components/ResponseBox';
+import Menu from "../components/Menu"
 
-const HeaderContainer = () => {
+import styled from 'styled-components'
+
+const HeaderWrapper = styled.header`
+    background-color: skyblue;
+    display:flex;
+    justify-content: space-around;
+`
+
+
+const HeaderContainer = ({ activeComponent, setActiveComponent }) => {
 
 
     const [response, setResponse] = useState('')
@@ -27,11 +37,13 @@ const HeaderContainer = () => {
         speak(response)
     }, [response])
 
-    return (<>
-        <SpeakBox />
+
+
+    return (<HeaderWrapper>
+        <SpeakBox activeComponent={activeComponent} />
         <ResponseBox response={response} />
-        {/* <Menu /> */}
-    </>);
+        <Menu setActiveComponent={setActiveComponent} />
+    </HeaderWrapper>);
 }
 
 export default HeaderContainer;

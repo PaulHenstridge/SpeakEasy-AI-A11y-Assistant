@@ -6,29 +6,30 @@ import { debounce } from 'lodash'
 import SocketContext from '../contexts/socketContext';
 import MemoBoard from "../components/MemoBoard";
 
-const MemoContainer = () => {
+const MemoContainer = ({ activeComponent }) => {
 
     const [memos, setMemos] = useState([])
     const [isNewMemo, setIsNewMemo] = useState(false)
 
+
     const socket = useContext(SocketContext);
 
+    //memoized save memo function
     const saveMemo = useCallback(
         debounce(async data => {
             console.log(data)
             setIsNewMemo(true)
-            const date = new Date();
 
+            const date = new Date();
             let day = date.getDate();
             let month = date.getMonth() + 1;
             let year = date.getFullYear();
-
             let currentDate = `${day}-${month}-${year}`;
 
             let memoObj = { "date": currentDate, "memo_text": data }
             try {
-                await axios.post('http://localhost:8080/memos', memoObj);
-                setMemos(prevMemos => [...prevMemos, memoObj]);
+                const response = await axios.post('http://localhost:8080/memos', memoObj);
+                setMemos(prevMemos => [...prevMemos, response.data]);
             } catch (error) {
                 console.error(error);
             }
@@ -62,13 +63,19 @@ const MemoContainer = () => {
     }, [socket, saveMemo]);
 
     // delete a memo
-    const deleteMemo = id => {
-        // TODO - 
+    const deleteMemo = async id => {
+        try {
+            await axios.delete(`http://localhost:8080/memos/${id}`);
+            setMemos(prevMemos => prevMemos.filter(memo => memo.id !== id));
+        } catch (error) {
+            console.error('Error deleting memo: ', error);
+        }
     }
+
 
     return (<>
 
-        {isNewMemo ? <MemoBoard memos={memos} /> : null}
+        {(activeComponent === "memo" || isNewMemo) && <MemoBoard memos={memos} handleDeleteMemo={deleteMemo} />}
 
     </>);
 }

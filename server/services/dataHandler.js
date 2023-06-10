@@ -17,6 +17,7 @@ const dataHandler = (d) => {
                 chatEmitter(message)
                 break;
             case 'memo':
+                console.log('MEMO EMITTER FIRED')
                 memoEmitter(message)
                 break;
             case 'email':
