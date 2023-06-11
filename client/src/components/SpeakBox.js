@@ -22,12 +22,9 @@ const SpeakBox = ({ activeComponent }) => {
         setKeysPressed(keys => ({ ...keys, [event.key]: true }))
     };
 
-
-
     const handleKeyUp = debounce((event) => {
         setKeysPressed(keys => ({ ...keys, [event.key]: false }))
     }, 500);
-
 
 
     useEffect(() => {
@@ -63,9 +60,9 @@ const SpeakBox = ({ activeComponent }) => {
             console.log(finalTranscript)
             let newChatObj = { role: "user", content: finalTranscript }
             if (activeComponent === 'chat') {
-                socket.emit('prompt', { prompt: finalTranscript })
-            } else {
                 socket.emit('conversation', { chats: [...conversationHistory, newChatObj] })
+            } else {
+                socket.emit('prompt', { prompt: finalTranscript })
             }
             // TODO - add else to handle connection loss
             setFinalTranscript("")

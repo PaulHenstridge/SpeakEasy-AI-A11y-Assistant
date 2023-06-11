@@ -17,5 +17,7 @@ export const memoEmitter = (data) => {
 }
 
 export const conversationEmitter = (data) => {
+    console.log("sending from convo Emitter", data)
+
     io.emit('conversation', data)
 }

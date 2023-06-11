@@ -11,7 +11,7 @@ const socketHandlers = (io) => {
         //AI events
         socket.on('prompt', async (data) => {
             let aiResponse = await callOpenAiApi({ role: 'user', content: data.prompt })
-            console.log(aiResponse)
+            console.log('Response form AI to prompt event ', aiResponse)
             dataHandler(aiResponse)
             // call 'main' function, pass in the prompt
         });
@@ -22,11 +22,11 @@ const socketHandlers = (io) => {
 
         // chat events
         socket.on('conversation', async (data) => {
-            console.log('message: ' + data)
-            let aiResponse = await callOpenAiApiChat({ role: 'user', content: data.chats })
+            console.log('dir of data in conv socket handler...')
+            console.dir(data)
+            let aiResponse = await callOpenAiApiChat(data.chats)
             console.log('AI RESPONSE', aiResponse)
             dataHandler(aiResponse)
-
         });
 
 

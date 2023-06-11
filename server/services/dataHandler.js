@@ -5,7 +5,10 @@ import { chatEmitter, memoEmitter, responseEmitter, conversationEmitter } from "
 
 const dataHandler = (data) => {
     console.log('DATA to datahandler: ', data)
-    if (typeof data[0] === Array) {
+    console.log('type of data to hdhander ', typeof data)
+    if (typeof data === 'object') {
+        conversationEmitter(data)
+    } else {
         // turn string into array
         const parsedData = JSON.parse(data)
         if (data[0]) {
@@ -29,11 +32,6 @@ const dataHandler = (data) => {
                 // call launchWord function
             }
         }
-
-    } else {
-        // send via response response 
-        // handle in some other way?
-        conversationEmitter(data)
     }
 }
 export default dataHandler

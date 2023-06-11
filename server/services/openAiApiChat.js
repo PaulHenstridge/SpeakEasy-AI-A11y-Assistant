@@ -7,7 +7,8 @@ const openAiConfig = new Configuration({
 });
 const openai = new OpenAIApi(openAiConfig);
 
-const callOpenAiApiChat = async message => {
+const callOpenAiApiChat = async messages => {
+    console.log("CHAT API CALLED")
     const result = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
         messages: [
@@ -17,10 +18,10 @@ const callOpenAiApiChat = async message => {
                     `Respond as a cheerful, helpful assistant, who likes to slip the odd dad joke into replies.
                     `,
             },
-            message,
+            ...messages,
         ]
     })
-    return result.data.choices[0].message.content
+    return result.data.choices[0].message
 }
 
 export default callOpenAiApiChat

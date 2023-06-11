@@ -15,10 +15,11 @@ const ChatContainer = ({ activeComponent, setActiveComponent }) => {
 
     useEffect(() => {
         socket.on('chat', data => {
-            console.log('NEW CHAT MSSG: ', data)
+            console.log('NEW CHAT MSSG: ', data) // data returns a string
             setIsNewChat(true)
             setActiveComponent('chat')
-            setConversationHistory(prevConversationHistory => [...prevConversationHistory, data])
+            let dataObj = { role: "assistant", content: data }
+            setConversationHistory(prevConversationHistory => [...prevConversationHistory, dataObj])
         })
 
         return () => {
@@ -30,8 +31,7 @@ const ChatContainer = ({ activeComponent, setActiveComponent }) => {
         socket.on('conversation', data => {
             console.log('NEW CONVERSATION MSSG: ', data)
             setActiveComponent('chat')
-            let newChatObj = { role: "assistant", content: data }
-            setConversationHistory(prevConversationHistory => [...prevConversationHistory, newChatObj])
+            setConversationHistory(prevConversationHistory => [...prevConversationHistory, data])
         })
         return () => {
             socket.off('conversation');
@@ -40,7 +40,7 @@ const ChatContainer = ({ activeComponent, setActiveComponent }) => {
 
     return (<>
         <h3>chatchat</h3>
-        {(activeComponent === "Chat" || isNewChat) && <div>
+        {(activeComponent === "chat" || isNewChat) && <div>
             {conversationHistory.map((chat, index) => (
                 <p key={index}>{chat.role}: {chat.content}</p>
             ))}

@@ -8,6 +8,7 @@ import ResponseBox from '../components/ResponseBox';
 import Menu from "../components/Menu"
 
 import styled from 'styled-components'
+import { ConversationProvider } from '../components/ConversationProvider';
 
 const HeaderWrapper = styled.header`
     background-color: skyblue;
@@ -17,7 +18,6 @@ const HeaderWrapper = styled.header`
 
 
 const HeaderContainer = ({ activeComponent, setActiveComponent }) => {
-
 
     const [response, setResponse] = useState('')
 
