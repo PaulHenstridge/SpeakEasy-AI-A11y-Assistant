@@ -1,11 +1,33 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext, useRef } from 'react'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import { debounce } from 'lodash';
+import styled from 'styled-components';
 
 import SocketContext from '../contexts/socketContext';
 import { ConversationContext } from '../contexts/ConversationContext';
+import { SpeechContext } from '../contexts/speechContext';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMicrophone } from '@fortawesome/free-solid-svg-icons'
+import { faMicrophoneSlash } from '@fortawesome/free-solid-svg-icons'
 
+const openMic = <FontAwesomeIcon icon={faMicrophone} />
+const closedMic = <FontAwesomeIcon icon={faMicrophoneSlash} />
+
+const SpeakBoxWrapper = styled.div`
+width: 40%;
+border: 2px solid black;
+display:flex;
+flex-direction: column;
+/* justify-content: center;
+align-items: center; */
+`
+
+const StyledButton = styled.button`
+    padding: 1rem;
+    border: none;
+    background-color: transparent;
+`
 
 
 const SpeakBox = ({ activeComponent }) => {
@@ -16,7 +38,10 @@ const SpeakBox = ({ activeComponent }) => {
 
     const socket = useContext(SocketContext);
     const { conversationHistory, setConversationHistory } = useContext(ConversationContext);
+    const speak = useContext(SpeechContext);
 
+
+    const spkBox = useRef()
 
     const handleKeyDown = (event) => {
         setKeysPressed(keys => ({ ...keys, [event.key]: true }))
@@ -26,6 +51,10 @@ const SpeakBox = ({ activeComponent }) => {
         setKeysPressed(keys => ({ ...keys, [event.key]: false }))
     }, 500);
 
+    // set focus to speakbox on render
+    useEffect(() => {
+        spkBox.current.focus()
+    }, [])
 
     useEffect(() => {
         window.addEventListener('keydown', handleKeyDown)
@@ -60,21 +89,51 @@ const SpeakBox = ({ activeComponent }) => {
             console.log(finalTranscript)
             let newChatObj = { role: "user", content: finalTranscript }
             if (activeComponent === 'chat') {
-                socket.emit('conversation', { chats: [...conversationHistory, newChatObj] })
+                setConversationHistory(prevConvHistory => [...prevConvHistory, newChatObj])
+                socket.emit('conversation', { chats: conversationHistory })
             } else {
                 socket.emit('prompt', { prompt: finalTranscript })
             }
             // TODO - add else to handle connection loss
-            setFinalTranscript("")
+            // setFinalTranscript("")
         }
     }, [finalTranscript])
-    // TODO - add clickable button below also
-    return (<>
-        {/* <button onClick={toggleSpeech}>Use Voice Commands</button> */}
-        {listening && <h6>listening</h6>}
-        <p>...   {transcript}   ...</p>
-        <h4>{finalTranscript}</h4>
-    </>);
+
+    useEffect(() => {
+        if (finalTranscript !== "") {
+            const timer = setTimeout(() => {
+                resetTranscript();
+                setFinalTranscript("");
+            }, 5000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [finalTranscript]);
+
+    const timeoutRef = useRef();
+
+    const handleFocus = (text) => {
+        timeoutRef.current = setTimeout(e => speak(text), 200); // start timeout
+    }
+
+    const handleBlur = () => {
+        clearTimeout(timeoutRef.current); // clear timeout if still waiting
+    }
+
+
+    return (<SpeakBoxWrapper >
+
+        {!listening && <StyledButton ref={spkBox} onFocus={() => handleFocus("Press Q and A to Speak at any time")} onBlur={handleBlur} tabIndex="0">Press Q and A to Speak</StyledButton>}
+        {listening && <h4>listening</h4>}
+        <div>
+            {!listening && closedMic}
+            {listening && openMic}
+            {listening && <p> {transcript} </p>}
+        </div>
+        <div>
+            <h4>{finalTranscript}</h4>
+        </div>
+    </SpeakBoxWrapper>);
 }
 
 export default SpeakBox

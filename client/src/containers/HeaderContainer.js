@@ -9,12 +9,20 @@ import Menu from "../components/Menu"
 
 import styled from 'styled-components'
 import { ConversationProvider } from '../components/ConversationProvider';
+import TextInput from '../components/TextInput';
 
 const HeaderWrapper = styled.header`
-    background-color: skyblue;
+    /* background-color: skyblue; */
     display:flex;
+    flex-direction: column;
     justify-content: space-around;
 `
+const FlexContainer = styled.div`
+    display: flex;
+    justify-content:space-around;
+    border: 1px solid black;
+`
+
 
 
 const HeaderContainer = ({ activeComponent, setActiveComponent }) => {
@@ -40,9 +48,14 @@ const HeaderContainer = ({ activeComponent, setActiveComponent }) => {
 
 
     return (<HeaderWrapper>
-        <SpeakBox activeComponent={activeComponent} />
+        <FlexContainer>
+            <Menu setActiveComponent={setActiveComponent} />
+        </FlexContainer>
+        <FlexContainer>
+            <SpeakBox activeComponent={activeComponent} />
+            <TextInput activeComponent={activeComponent} speak={speak} />
+        </FlexContainer>
         <ResponseBox response={response} />
-        <Menu setActiveComponent={setActiveComponent} />
     </HeaderWrapper>);
 }
 

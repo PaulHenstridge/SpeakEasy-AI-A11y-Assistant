@@ -6,10 +6,9 @@ import { debounce } from 'lodash'
 import SocketContext from '../contexts/socketContext';
 import MemoBoard from "../components/MemoBoard";
 
-const MemoContainer = ({ activeComponent }) => {
+const MemoContainer = ({ activeComponent, setActiveComponent }) => {
 
     const [memos, setMemos] = useState([])
-    const [isNewMemo, setIsNewMemo] = useState(false)
 
 
     const socket = useContext(SocketContext);
@@ -18,7 +17,7 @@ const MemoContainer = ({ activeComponent }) => {
     const saveMemo = useCallback(
         debounce(async data => {
             console.log(data)
-            setIsNewMemo(true)
+            setActiveComponent('memo')
 
             const date = new Date();
             let day = date.getDate();
@@ -75,7 +74,7 @@ const MemoContainer = ({ activeComponent }) => {
 
     return (<>
 
-        {(activeComponent === "memo" || isNewMemo) && <MemoBoard memos={memos} handleDeleteMemo={deleteMemo} />}
+        {(activeComponent === "memo") && <MemoBoard memos={memos} handleDeleteMemo={deleteMemo} />}
 
     </>);
 }

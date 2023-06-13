@@ -39,6 +39,9 @@ const callOpenAiApi = async message => {
                    e.g. prompt: "speakeasy im thirsty", completion: [["response"], "You should always drink enough water."]
                    e.g. prompt: "why did my boss send me a memo?", completion: [["response"], "A memo is often an informal, brief way of communicating in business."]
                    
+                   when returning a ["response'] comletion, include informal greeting to the user, such as [bro, my dude, my esteemed dude, homeslice, my homey, superchief ...etc]  be creative when coming up with greetings.
+                   e.g. prompt: "what is the capital of Norway?", completion: [["response"], "Norway's capital is Olso, my esteemed dude."]
+
                    Before responding, check the response meets the strict format conditions above, and do not respond unless the response is in that format  [["keyword"], "completion"]
                    
                    `,
