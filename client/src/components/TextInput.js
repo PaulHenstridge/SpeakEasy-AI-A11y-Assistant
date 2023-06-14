@@ -11,7 +11,14 @@ const StyledInput = styled.input`
     width: 40%;
     text-align:center;
     border: 2px solid black;
-    font-size: 2rem;
+    font-size: ${props => props.theme.fontSize.extraLarge};
+    background-color:${props => props.theme.colors.fg};
+    color:${props => props.theme.colors.ac};
+    ::placeholder {
+    color: ${props => props.theme.colors.ac};
+    
+  }
+
 `
 
 const TextInput = ({ activeComponent, speak }) => {
@@ -63,7 +70,7 @@ const TextInput = ({ activeComponent, speak }) => {
             value={inputText}
             onChange={handleTextInput}
             onKeyDown={handleKeyDown}
-            placeholder='Type here'
+            placeholder='Type here...'
             tabindex="0"
             onFocus={() => handleFocus("Keyboard input")}
             onBlur={handleBlur}

@@ -2,18 +2,19 @@
 import styled from 'styled-components';
 
 const StyledResponseBox = styled.div`
-
-    color: ${props => props.theme.textColor};
-    font-size: ${props => props.theme.fontSize};
-    background-color:${props => props.theme.fontSize};
+    font-size: ${props => props.theme.fontSize.medium};
+    background-color:${props => props.theme.backgroundColor};
     width: 80%;
     margin:auto;
 `
-
+const styledSpan = styled.span`
+font-size: ${props => props.theme.fontSize.medium};
+color: ${props => props.theme.colors.fg};
+`
 
 const ResponseBox = ({ response }) => {
     return (<StyledResponseBox>
-        <h5>{response}</h5>
+        <styledSpan>{response}</styledSpan>
     </StyledResponseBox>);
 }
 

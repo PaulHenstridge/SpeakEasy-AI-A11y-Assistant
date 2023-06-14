@@ -1,24 +1,39 @@
 import React from 'react';
-
+//
 const defaultTheme = {
-    textColor: '#10262f',
-    backgroundColor: '#1e90ff',
+    name: 'default',
+    colors: {
+        bg: '#1e90ff',
+        fg: '#2f0949',
+        ac: '#FFD700'
+    },
     fontSize: {
         small: '12px',
-        medium: '16px',
-        large: '24px',
-        extraLarge: '32px',
-    }
+        medium: '18px',
+        large: '26px',
+        extraLarge: '34px',
+    },
+    letterSpacing: {
+        medium: '2px'
+    },
+
 }
 
 const highContrastTheme = {
-    textColor: '#1e90ff',
-    backgroundColor: '#10262f',
+    name: 'highContrast',
+    colors: {
+        bg: '#000000',
+        fg: '#b1e5ed',
+        ac: '#7d1603'
+    },
     fontSize: {
         small: '14px',
-        medium: '18px',
-        large: '28px',
-        extraLarge: '36px',
+        medium: '32px',
+        large: '36px',
+        extraLarge: '44px',
+    },
+    letterSpacing: {
+        medium: '3px'
     }
 }
 const ThemeContext = React.createContext({

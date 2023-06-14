@@ -21,12 +21,12 @@ const HeaderWrapper = styled.header`
 const FlexContainer = styled.div`
     display: flex;
     justify-content:space-around;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 `
 
 
 
-const HeaderContainer = ({ activeComponent, setActiveComponent, position }) => {
+const HeaderContainer = ({ activeComponent, setActiveComponent }) => {
 
     const [response, setResponse] = useState('')
 
@@ -37,26 +37,24 @@ const HeaderContainer = ({ activeComponent, setActiveComponent, position }) => {
         socket.on('response', data => {
             console.log(data)
             setResponse(data)
-            // send data to new component to be printed and spoken!
-            // ie... set as state and pass state to ResponseBox
         })
     }, [socket])
 
     useEffect(() => {
         speak(response)
-    }, [response])
+    }, [response, speak])
 
 
 
     return (<HeaderWrapper>
         <FlexContainer>
-            <Menu setActiveComponent={setActiveComponent} />
+            <Menu setActiveComponent={setActiveComponent} activeComponent={activeComponent} />
         </FlexContainer>
+        <ResponseBox response={response} />
         <FlexContainer>
             <SpeakBox activeComponent={activeComponent} />
             <TextInput activeComponent={activeComponent} speak={speak} />
         </FlexContainer>
-        <ResponseBox response={response} />
     </HeaderWrapper>);
 }
 

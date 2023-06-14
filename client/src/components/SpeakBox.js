@@ -19,11 +19,12 @@ width: 40%;
 border: 2px solid black;
 display:flex;
 flex-direction: column;
-/* justify-content: center;
-align-items: center; */
+background-color: ${props => props.theme.colors.fg};
+color: ${props => props.theme.colors.ac};
+font-size: ${props => props.theme.fontSize.large}
 `
 
-const StyledButton = styled.button`
+const StyledDiv = styled.div`
     padding: 1rem;
     border: none;
     background-color: transparent;
@@ -113,7 +114,7 @@ const SpeakBox = ({ activeComponent }) => {
     const timeoutRef = useRef();
 
     const handleFocus = (text) => {
-        timeoutRef.current = setTimeout(e => speak(text), 200); // start timeout
+        timeoutRef.current = setTimeout(e => speak(text), 300); // start timeout
     }
 
     const handleBlur = () => {
@@ -121,9 +122,9 @@ const SpeakBox = ({ activeComponent }) => {
     }
 
 
-    return (<SpeakBoxWrapper >
+    return (<SpeakBoxWrapper ref={spkBox} onFocus={() => handleFocus("Press Q and A to Speak at any time")} onBlur={handleBlur} tabIndex="0">
 
-        {!listening && <StyledButton ref={spkBox} onFocus={() => handleFocus("Press Q and A to Speak at any time")} onBlur={handleBlur} tabIndex="0">Press Q and A to Speak</StyledButton>}
+        {!listening && <StyledDiv>Press Q and A to Speak</StyledDiv>}
         {listening && <h4>listening</h4>}
         <div>
             {!listening && closedMic}

@@ -45,14 +45,7 @@ const ChatContainer = ({ activeComponent, setActiveComponent }) => {
     }, [socket])
 
     return (<>
-
         {activeComponent === "chat" && <ChatDisplay conversationHistory={conversationHistory} />}
-        {/* <h3>chatchat</h3>
-        {(activeComponent === "chat") && <div>
-            {conversationHistory.map((chat, index) => (
-                <p key={index}>{chat.role}: {chat.content}</p>
-            ))}
-        </div>} */}
     </>);
 }
 

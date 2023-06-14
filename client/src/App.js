@@ -17,26 +17,27 @@ import ThemeProvider from './components/ThemeProvider';
 import styled from 'styled-components';
 import GlobalStyle from './components/GlobalStyle';
 
+const TitleHeader = styled.h1`
+   color: ${props => props.theme.colors.fg};
+   font-size: ${props => (props.activeComponent === "chat" || props.activeComponent === "memo") ? "3rem" : "6rem"};
+`
+
+
 function App() {
     const [activeComponent, setActiveComponent] = useState(null);
-    const [headerPosition, setHeaderPosition] = useState('center');
 
-
-    // state held in App is changed down in menu, triggering re-renders and the right component displayed.
     return (
         <div className="App">
-            <h1>SpeakEasy</h1>
-            <h5>{activeComponent}</h5>
             <SocketContext.Provider value={socket}>
                 <SpeechProvider>
                     <ThemeProvider>
+                        <TitleHeader activeComponent={activeComponent}>SpeakEasy</TitleHeader>
                         <GlobalStyle />
                         <ConversationProvider>
-                            <HeaderContainer activeComponent={activeComponent} setActiveComponent={setActiveComponent} position={headerPosition} />
+                            <HeaderContainer activeComponent={activeComponent} setActiveComponent={setActiveComponent} />
                             <ChatContainer activeComponent={activeComponent} setActiveComponent={setActiveComponent} />
                         </ConversationProvider>
                         <MemoContainer activeComponent={activeComponent} setActiveComponent={setActiveComponent} />
-                        {/* <GameContainer /> */}
                     </ThemeProvider>
                 </SpeechProvider>
             </SocketContext.Provider>
