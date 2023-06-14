@@ -7,7 +7,11 @@ const MenuWrapper = styled.menu`
 width: 50%;
     display:flex;
     justify-content: space-around;
-
+`
+const StyledButton = styled.button`
+    padding: 0.4rem 0.8rem;
+    border-radius: 15%;
+    border: none;
 `
 
 const Menu = ({ setActiveComponent }) => {
@@ -29,10 +33,10 @@ const Menu = ({ setActiveComponent }) => {
 
     return (
         <MenuWrapper>
-            <button onClick={() => setActiveComponent("chat")} onFocus={() => handleFocus("chat")} onBlur={handleBlur} tabIndex="0">Chat</button>
-            <button onClick={() => setActiveComponent("memo")} onFocus={() => handleFocus("memo")} onBlur={handleBlur} tabIndex="0">Memo</button>
-            <button onClick={() => setActiveComponent("info")} onFocus={() => handleFocus("Info")} onBlur={handleBlur} tabIndex="0">Info</button>
-            <button onClick={toggleTheme} onFocus={() => handleFocus("toggle enhanced text")} onBlur={handleBlur} tabIndex="0">Toggle Enhanced Text</button>
+            <StyledButton onClick={() => setActiveComponent("chat")} onFocus={() => handleFocus("chat")} onBlur={handleBlur} tabIndex="0">Chat</StyledButton>
+            <StyledButton onClick={() => setActiveComponent("memo")} onFocus={() => handleFocus("memo")} onBlur={handleBlur} tabIndex="0">Memo</StyledButton>
+            <StyledButton onClick={() => setActiveComponent("info")} onFocus={() => handleFocus("Info")} onBlur={handleBlur} tabIndex="0">Info</StyledButton>
+            <StyledButton onClick={toggleTheme} onFocus={() => handleFocus("toggle enhanced text")} onBlur={handleBlur} tabIndex="0">Toggle Enhanced Text</StyledButton>
         </MenuWrapper>
     );
 }

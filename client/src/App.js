@@ -19,6 +19,7 @@ import GlobalStyle from './components/GlobalStyle';
 
 function App() {
     const [activeComponent, setActiveComponent] = useState(null);
+    const [headerPosition, setHeaderPosition] = useState('center');
 
 
     // state held in App is changed down in menu, triggering re-renders and the right component displayed.
@@ -31,7 +32,7 @@ function App() {
                     <ThemeProvider>
                         <GlobalStyle />
                         <ConversationProvider>
-                            <HeaderContainer activeComponent={activeComponent} setActiveComponent={setActiveComponent} />
+                            <HeaderContainer activeComponent={activeComponent} setActiveComponent={setActiveComponent} position={headerPosition} />
                             <ChatContainer activeComponent={activeComponent} setActiveComponent={setActiveComponent} />
                         </ConversationProvider>
                         <MemoContainer activeComponent={activeComponent} setActiveComponent={setActiveComponent} />

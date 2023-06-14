@@ -16,6 +16,7 @@ const HeaderWrapper = styled.header`
     display:flex;
     flex-direction: column;
     justify-content: space-around;
+
 `
 const FlexContainer = styled.div`
     display: flex;
@@ -25,7 +26,7 @@ const FlexContainer = styled.div`
 
 
 
-const HeaderContainer = ({ activeComponent, setActiveComponent }) => {
+const HeaderContainer = ({ activeComponent, setActiveComponent, position }) => {
 
     const [response, setResponse] = useState('')
 
