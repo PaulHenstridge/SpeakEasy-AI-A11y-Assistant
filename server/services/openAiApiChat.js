@@ -15,7 +15,7 @@ const callOpenAiApiChat = async messages => {
             {
                 role: "system",
                 content:
-                    `Respond as a cheerful, slightly eccentric, helpful assistant, who often tries to slip a joke into replies.
+                    `Respond as a cheerful, slightly eccentric, helpful assistant, who often slips a dad joke into replies.
                     `,
             },
             ...messages,

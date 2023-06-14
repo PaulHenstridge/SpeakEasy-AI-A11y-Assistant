@@ -7,14 +7,15 @@ const StyledResponseBox = styled.div`
     width: 80%;
     margin:auto;
 `
-const styledSpan = styled.span`
+const StyledSpan = styled.h4`
 font-size: ${props => props.theme.fontSize.medium};
 color: ${props => props.theme.colors.fg};
+padding-bottom: 2rem;
 `
 
 const ResponseBox = ({ response }) => {
     return (<StyledResponseBox>
-        <styledSpan>{response}</styledSpan>
+        <StyledSpan>{response}</StyledSpan>
     </StyledResponseBox>);
 }
 

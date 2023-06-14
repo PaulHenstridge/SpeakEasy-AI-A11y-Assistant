@@ -15,10 +15,5 @@ const GlobalStyle = createGlobalStyle`
         font-weight:800;
         letter-spacing:  ${props => props.theme.letterSpacing.medium};
     }
-
-
 `
-
-
-
 export default GlobalStyle;

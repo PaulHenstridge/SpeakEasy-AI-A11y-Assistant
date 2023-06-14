@@ -9,9 +9,9 @@ const defaultTheme = {
     },
     fontSize: {
         small: '12px',
-        medium: '18px',
-        large: '26px',
-        extraLarge: '34px',
+        medium: '24px',
+        large: '30px',
+        extraLarge: '38px',
     },
     letterSpacing: {
         medium: '2px'
@@ -27,10 +27,10 @@ const highContrastTheme = {
         ac: '#7d1603'
     },
     fontSize: {
-        small: '14px',
-        medium: '32px',
-        large: '36px',
-        extraLarge: '44px',
+        small: '18px',
+        medium: '36px',
+        large: '40px',
+        extraLarge: '46px',
     },
     letterSpacing: {
         medium: '3px'

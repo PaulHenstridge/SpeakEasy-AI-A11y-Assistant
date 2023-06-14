@@ -1,6 +1,3 @@
-
-// keywords - memo, email, word, chat, response
-
 import { chatEmitter, memoEmitter, responseEmitter, conversationEmitter } from "./socketEmitters.js";
 
 const dataHandler = (data) => {
@@ -26,12 +23,8 @@ const dataHandler = (data) => {
             }
         } catch (error) {
             console.log("Error @ JSON.parse of API RESPONSE", error)
-            conversationEmitter({ role: "user", content: data })
-
+            conversationEmitter({ role: "assistant", content: data })
         }
-
     }
-
 }
-
 export default dataHandler
