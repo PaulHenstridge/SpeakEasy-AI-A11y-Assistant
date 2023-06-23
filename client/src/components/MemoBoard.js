@@ -11,6 +11,3 @@ const MemoBoard = ({ memos, handleDeleteMemo }) => {
 }
 
 export default MemoBoard;
-
-
-

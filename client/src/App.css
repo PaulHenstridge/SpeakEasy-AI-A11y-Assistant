@@ -11,6 +11,10 @@
     /* Use any color you want here */
 }
 
-/* .div>menu>header {
-    color: #a32008;
-} */
+.div>menu>header {
+    color: #7d1603;
+}
+
+.div>menu>header>div {
+    color: #b1e5ed;
+}
