@@ -19,7 +19,6 @@ SpeakEasy is an AI-powered accessibility assistant application aimed at helping 
 
 ## Installation
 
-*Details on how to install and setup the project locally.*
 
 ```bash
 # Clone this repository
@@ -45,7 +44,7 @@ Keyboard Control
 The application can be fully controlled with just 5 keys, and voice input. <br>
 To provide voice input press and hold `Q` + `A` together, and release when finished.
 use `tab` to move around the application, and `return` to interact with each section.
-If tabbing through memo items, press`S` to speak the memo, or `D` to delete it.
+If tabbing through memo items, press `S` to speak the memo, or `D` to delete it.
 
 Voice Activation
 
@@ -97,5 +96,5 @@ Built with ❤️ by Paul Henstridge
 
 ## Contact Information
 
-<br>Github: [@your-github-username](https://github.com/PaulHenstridge)
+<br>Github: [@PaulHenstridge](https://github.com/PaulHenstridge)
 <br>LinkedIn: [LinkedIn](https://www.linkedin.com/in/paul-henstridge-68221833) 
