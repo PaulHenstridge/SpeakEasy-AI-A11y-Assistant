@@ -1,5 +1,4 @@
-# Project Title
-SpeakEasy Accessibility Assistant
+# SpeakEasy - AI Accessibility Assistant
 
 ## Table of Contents
 
@@ -15,7 +14,7 @@ SpeakEasy Accessibility Assistant
 
 ## Description
 
-SpeakEasy is an AI-powered accessibility assistant application aimed at helping users navigate the web using voice commands and provides a chat and memo functionality. The application utilises advanced speech synthesis to communicate with users, providing an intuitive and inclusive user experience.
+SpeakEasy is an AI-powered accessibility assistant application aimed at helping users navigate the web and interact with their computer using voice commands. This prototype provides an AI supported chat and memo functionality. The application uses speech synthesis to communicate aurally with the user, offering an intuitive and inclusive user experience.
 
 ## Installation
 
